@@ -1,0 +1,11 @@
+#!/bin/bash
+# Gets a clone ready: needs Node 22 or newer, then points git at the repository's hooks. Safe to run again.
+set -eu
+root=$(git rev-parse --show-toplevel)
+cd "$root"
+if ! node -e 'process.exit(Number(process.versions.node.split(".")[0]) >= 22 ? 0 : 1)'; then
+  echo "setup: Node 22 or newer is needed; found $(node -v)" >&2
+  exit 1
+fi
+git config core.hooksPath .githooks
+echo "setup: hooks run from .githooks"

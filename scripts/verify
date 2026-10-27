@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+// parcel-notes' own check.
+//   scripts/verify           the size rule, then every test
+//   scripts/verify --fast    the size rule only; .githooks/pre-commit runs it
+// It prints each step it ends on and a last line; a step that fails ends the run with that step's exit code.
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
+
+const top = fileURLToPath(new URL("..", import.meta.url));
+const fast = process.argv.includes("--fast");
+
+const steps = [["size rule", ["scripts/size.mjs"]]];
+if (!fast) steps.push(["tests", ["--test", "test/*.test.mjs"]]);
+
+for (const [name, args] of steps) {
+  const done = spawnSync(process.execPath, args, { cwd: top, stdio: "inherit" });
+  if (done.status !== 0) {
+    console.log(`verify: ${name} failed`);
+    process.exit(done.status ?? 1);
+  }
+  console.log(`verify: ${name} ok`);
+}
+console.log(`verify: ${steps.length} step${steps.length === 1 ? "" : "s"} passed`);

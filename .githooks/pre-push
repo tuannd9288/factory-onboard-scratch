@@ -1,0 +1,9 @@
+#!/bin/sh
+# Nothing goes straight to main; a branch and a pull request do.
+while read -r _ _ remote_ref _; do
+  if [ "$remote_ref" = "refs/heads/main" ]; then
+    echo "pre-push: this would update main. Push a branch and open a pull request instead." >&2
+    exit 1
+  fi
+done
+exit 0

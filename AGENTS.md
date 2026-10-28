@@ -1,4 +1,4 @@
-# parcel-notes
+# factory-scratch
 
 <!-- factory:gate:begin -->
 ## Gate
@@ -27,8 +27,9 @@ file. What a program enforces: `.gate/enforced-rules.md`.
 - A hosted agent assigned on GitHub takes tier 1 and 2 issues only, and never receives the shared bot token.
 <!-- factory:gate:end -->
 
-parcel-notes turns a courier's free-text delivery notes into the one-line summaries on the depot's morning sheet. It
-is a small Node module that the depot's laptop runs each dawn; the two depot clerks read its output and nothing else.
+factory-scratch is a throwaway repository the factory kit is proven on; nothing here runs anywhere. Its code is the
+probe fixture of tuannd9288/factory-scratch at 40878f3e, a small message gateway. The seeded defects and clean changes
+of `probes/plan.md` in tuannd9288/factory are written against it.
 
 ## Commands
 
@@ -40,7 +41,11 @@ is a small Node module that the depot's laptop runs each dawn; the two depot cle
 
 ## Layout
 
-- `src/notes.mjs`: `summarize` and `countDelivered`, the whole product.
+- `src/ratelimit.js`: a sliding-window send limit per recipient.
+- `src/format.js`: `truncate`, which never splits an emoji, `squash` and `initials`.
+- `src/auth/token.js`: signs and checks `<recipient>.<expiresAt>.<hmac>` tokens with the gateway's key.
+- `src/send.js`: sends one message through a transport, retrying transient failures.
+- `src/notes.mjs`: `summarize` and `countDelivered`, kept from the repository's first product, parcel-notes.
 - `test/`: Node's built-in test runner, one file for each source file.
 - `scripts/`: `verify` and `setup`.
 - `.githooks/`: `pre-commit` runs the fast half of `scripts/verify`; `pre-push` refuses a push to `main`.
@@ -51,18 +56,8 @@ is a small Node module that the depot's laptop runs each dawn; the two depot cle
 | Rule | Enforced by |
 |---|---|
 | Every behaviour has a test that fails without it | `scripts/verify` runs them all; review reads the diff |
+| A change to `src/auth/` or `src/send.js` is tier 2 | `.gate/load-bearing` |
 | Nothing is pushed straight to `main` | `.githooks/pre-push` |
 | A summary never passes the sheet's width of 72 characters | `test/notes.test.mjs` |
 
 A rule with nothing to enforce it goes in this table as `prose` and gets a tool or is deleted.
-
-## Building and review
-
-Work on a branch and open a pull request. Run `scripts/verify` before you push. A reviewer who did not write the change
-reads the diff; the clerks' sheet is the only deploy, and the depot manager decides when it changes.
-
-## Facts the code cannot tell
-
-- The sheet is 72 characters wide because the depot's printer cuts there (decided by the depot manager, 2026-09-02).
-- A note that says "delivered" in any case counts as a delivery; the courier app has no status field of its own.
-- The laptop has Node 22 and no network at dawn, so nothing here may fetch anything.

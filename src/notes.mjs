@@ -4,7 +4,7 @@ export const SHEET_WIDTH = 72;
 export function summarize(note) {
   const flat = String(note).replace(/\s+/g, " ").trim();
   if (flat === "") return "(empty note)";
-  return flat.length <= SHEET_WIDTH ? flat : `${flat.slice(0, SHEET_WIDTH - 1)}…`;
+  return flat.length <= SHEET_WIDTH ? flat : `${flat.slice(0, SHEET_WIDTH - 1).trimEnd()}…`;
 }
 
 export function countDelivered(notes) {

@@ -1,6 +1,7 @@
-import { test } from 'node:test';
+import { before, test } from 'node:test';
 import assert from 'node:assert/strict';
-import { sign, verify } from '../../src/auth/token.js';
+let sign, verify;
+before(async () => ({ sign, verify } = await import('../../src/auth/token.js')));
 
 const key = 'test-key-not-a-secret';
 

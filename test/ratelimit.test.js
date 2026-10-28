@@ -1,6 +1,7 @@
-import { test } from 'node:test';
+import { before, test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createLimiter } from '../src/ratelimit.js';
+let createLimiter;
+before(async () => ({ createLimiter } = await import('../src/ratelimit.js')));
 
 test('allows up to the limit, then refuses', () => {
   let t = 0;

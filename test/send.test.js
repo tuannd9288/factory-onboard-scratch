@@ -1,6 +1,7 @@
-import { test } from 'node:test';
+import { before, test } from 'node:test';
 import assert from 'node:assert/strict';
-import { send } from '../src/send.js';
+let send;
+before(async () => ({ send } = await import('../src/send.js')));
 
 test('returns what the transport returns', async () => {
   assert.equal(await send(async () => 'ok', { to: 'a', text: 'hi' }), 'ok');

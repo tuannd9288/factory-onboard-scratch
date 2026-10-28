@@ -1,6 +1,7 @@
-import { test } from 'node:test';
+import { before, test } from 'node:test';
 import assert from 'node:assert/strict';
-import { truncate, squash } from '../src/format.js';
+let truncate, squash;
+before(async () => ({ truncate, squash } = await import('../src/format.js')));
 
 test('keeps short text whole', () => {
   assert.equal(truncate('xin chào', 20), 'xin chào');

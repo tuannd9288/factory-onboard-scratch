@@ -27,3 +27,9 @@ test("a note that says not delivered is no delivery", () => {
 test("a note that says not yet delivered is no delivery", () => {
   assert.equal(countDelivered(["Not yet delivered, van late", "not  YET delivered", "Delivered to desk"]), 1);
 });
+
+test("a note cut just after a space shows no space before the ellipsis", () => {
+  const out = summarize(`${"a".repeat(70)} ${"b".repeat(20)}`);
+  assert.ok(out.length <= SHEET_WIDTH);
+  assert.equal(out, `${"a".repeat(70)}…`);
+});

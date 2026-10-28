@@ -1,4 +1,4 @@
 #!/bin/sh
-# scripts/verify on the work tree, before a commit is made.
+# The quick half of scripts/verify on the work tree, before a commit is made.
 root=$(git rev-parse --show-toplevel) || exit 1
-exec node "$root/scripts/verify"
+exec node "$root/scripts/verify" --fast

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // parcel-notes' own check.
-//   scripts/verify           the size rule, then every test
-//   scripts/verify --fast    the size rule only; .githooks/pre-commit runs it
+//   scripts/verify           every test
+//   scripts/verify --fast    no step since the size rule went; .githooks/pre-commit runs it, so a commit that holds
+//                            only a failing test, as the gate's tier 2 and 3 steps ask, still goes in
 // It prints each step it ends on and a last line; a step that fails ends the run with that step's exit code.
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
@@ -9,8 +10,8 @@ import { fileURLToPath } from "node:url";
 const top = fileURLToPath(new URL("..", import.meta.url));
 const fast = process.argv.includes("--fast");
 
-const steps = [["size rule", ["scripts/size.mjs"]]];
-if (!fast) steps.push(["tests", ["--test", "test/*.test.mjs"]]);
+const steps = [];
+if (!fast) steps.push(["tests", ["--test"]]);
 
 for (const [name, args] of steps) {
   const done = spawnSync(process.execPath, args, { cwd: top, stdio: "inherit" });

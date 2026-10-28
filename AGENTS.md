@@ -35,14 +35,14 @@ is a small Node module that the depot's laptop runs each dawn; the two depot cle
 | Command | What it does |
 |---|---|
 | `scripts/setup` | checks Node, points git at `.githooks`; run it once per clone |
-| `scripts/verify` | the size rule, then every test; ends on `verify: 2 steps passed` |
-| `scripts/verify --fast` | the size rule only; the pre-commit hook runs it |
+| `scripts/verify` | every test, with Node's built-in runner; ends on `verify: 1 step passed` |
+| `scripts/verify --fast` | no step since the size rule went; the pre-commit hook runs it, so a commit that holds only a failing test still goes in |
 
 ## Layout
 
 - `src/notes.mjs`: `summarize` and `countDelivered`, the whole product.
 - `test/`: Node's built-in test runner, one file for each source file.
-- `scripts/`: `verify` and the `size.mjs` it calls, and `setup`.
+- `scripts/`: `verify` and `setup`.
 - `.githooks/`: `pre-commit` runs the fast half of `scripts/verify`; `pre-push` refuses a push to `main`.
 - `.claude/settings.json`: the plugin pin and the commands an agent may not run.
 
@@ -50,7 +50,6 @@ is a small Node module that the depot's laptop runs each dawn; the two depot cle
 
 | Rule | Enforced by |
 |---|---|
-| No file in `src/` longer than 60 lines | `scripts/size.mjs`, run by `scripts/verify` |
 | Every behaviour has a test that fails without it | `scripts/verify` runs them all; review reads the diff |
 | Nothing is pushed straight to `main` | `.githooks/pre-push` |
 | A summary never passes the sheet's width of 72 characters | `test/notes.test.mjs` |

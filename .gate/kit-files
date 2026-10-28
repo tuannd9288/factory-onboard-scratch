@@ -1,15 +1,18 @@
 .claude/settings.json
 .claude/skills/gate-red/SKILL.md
 .gate/.gitignore
+.gate/bin/claim
 .gate/bin/lib/acceptance.mjs
 .gate/bin/lib/approval.mjs
 .gate/bin/lib/budget.mjs
+.gate/bin/lib/claim.mjs
 .gate/bin/lib/claude-reviewer.mjs
 .gate/bin/lib/history.mjs
 .gate/bin/lib/instructions.mjs
 .gate/bin/lib/junit.mjs
 .gate/bin/lib/paths.mjs
 .gate/bin/lib/policy.mjs
+.gate/bin/lib/prbody.mjs
 .gate/bin/lib/proofs.mjs
 .gate/bin/lib/result.mjs
 .gate/bin/lib/reviewer-prompt.md
@@ -27,6 +30,7 @@
 .gate/bin/setup
 .gate/bin/tier
 .gate/bin/verify
+.gate/bin/verify-timeout
 .gate/bin/verify-trusted
 .gate/config.sh
 .gate/enforced-rules.md

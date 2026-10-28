@@ -27,3 +27,7 @@ test("a note that says not delivered is no delivery", () => {
 test("a note that says not yet delivered is no delivery", () => {
   assert.equal(countDelivered(["Not yet delivered, van late", "not  YET delivered", "Delivered to desk"]), 1);
 });
+
+test("a not yet delivered note split across lines is no delivery", () => {
+  assert.equal(countDelivered(["not yet\ndelivered", "Not yet\tdelivered, van late", "Delivered to desk"]), 1);
+});

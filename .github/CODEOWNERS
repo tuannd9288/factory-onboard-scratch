@@ -1,0 +1,43 @@
+# Tier 3: the gate and every input that decides what the checks run wait for the Human's approval. GitHub reads this
+# file from the base branch and takes the last line that matches, so these lines come last and equal .gate/protected
+# (.gate/bin/verify checks it). The repository's own owners, if it has any, go above them.
+/.github/                @tuannd9288
+/.gate/                  @tuannd9288
+/.githooks/              @tuannd9288
+/.claude/                @tuannd9288
+/scripts/                @tuannd9288
+/AGENTS.md               @tuannd9288
+/CLAUDE.md               @tuannd9288
+.gitattributes           @tuannd9288
+tsconfig*.json           @tuannd9288
+jsconfig.json            @tuannd9288
+jest.config.*            @tuannd9288
+vitest.config.*          @tuannd9288
+vite.config.*            @tuannd9288
+playwright.config.*      @tuannd9288
+cypress.config.*         @tuannd9288
+karma.conf.*             @tuannd9288
+babel.config.*           @tuannd9288
+.babelrc*                @tuannd9288
+.mocharc*                @tuannd9288
+.eslintrc*               @tuannd9288
+eslint.config.*          @tuannd9288
+biome.json*              @tuannd9288
+pytest.ini               @tuannd9288
+tox.ini                  @tuannd9288
+setup.cfg                @tuannd9288
+noxfile.py               @tuannd9288
+.coveragerc              @tuannd9288
+mypy.ini                 @tuannd9288
+ruff.toml                @tuannd9288
+.ruff.toml               @tuannd9288
+.flake8                  @tuannd9288
+pyrightconfig.json       @tuannd9288
+.golangci.y*ml           @tuannd9288
+clippy.toml              @tuannd9288
+.gitlab-ci.yml           @tuannd9288
+.circleci/               @tuannd9288
+Jenkinsfile              @tuannd9288
+.husky/                  @tuannd9288
+.pre-commit-config.y*ml  @tuannd9288
+lefthook.y*ml            @tuannd9288

@@ -27,3 +27,8 @@ test("a note that says not delivered is no delivery", () => {
 test("a note that says not yet delivered is no delivery", () => {
   assert.equal(countDelivered(["Not yet delivered, van late", "not  YET delivered", "Delivered to desk"]), 1);
 });
+
+test("the footer prints the share of notes that are deliveries", async () => {
+  const { deliveryRate } = await import("../src/notes.mjs");
+  assert.equal(deliveryRate(["Delivered to desk", "no answer"]), "50%");
+});

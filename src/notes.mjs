@@ -10,3 +10,8 @@ export function summarize(note) {
 export function countDelivered(notes) {
   return notes.filter((note) => /\bdelivered\b/i.test(note) && !/\bnot\s+(?:yet\s+)?delivered\b/i.test(note)).length;
 }
+
+/** The share of the day's notes that are deliveries, as the sheet's footer prints it. */
+export function deliveryRate(notes) {
+  return `${Math.round((countDelivered(notes) / notes.length) * 100)}%`;
+}

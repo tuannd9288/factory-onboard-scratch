@@ -19,3 +19,7 @@ test("an empty note says so", () => {
 test("only notes that say delivered are counted as deliveries", () => {
   assert.equal(countDelivered(["Delivered to desk", "no answer", "DELIVERED, signed"]), 2);
 });
+
+test("a note that says not delivered is no delivery", () => {
+  assert.equal(countDelivered(["Not delivered, gate locked", "not  delivered", "Delivered to desk"]), 1);
+});

@@ -34,8 +34,3 @@ GATE_VERIFY_TIMEOUT=30
 # Paths whose change is a source change, for red-check; tests are told apart by .gate/handin.json's "tests" patterns.
 GATE_SOURCE='\.([cm]?[jt]sx?|py|go|rs|rb|java|kt|kts|scala|php|swift|cs|c|cc|cpp|h|hpp|sh)$'
 export GATE_SOURCE
-
-# --- adapter, written by bin/onboard from the repository's own files ---
-GATE_NATIVE=scripts/verify
-GATE_CHECKS="${GATE_CHECKS:+$GATE_CHECKS }native"
-gate_fast() { .githooks/pre-commit; }

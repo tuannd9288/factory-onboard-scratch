@@ -1,0 +1,9 @@
+{
+  "name": "factory-scratch",
+  "private": true,
+  "type": "module",
+  "description": "Scratch repository for proving the factory kit. Not a product.",
+  "scripts": {
+    "test": "node --test"
+  }
+}

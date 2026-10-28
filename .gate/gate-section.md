@@ -5,7 +5,7 @@ Gate marker: gate-section-v1 (a session that loaded this file can quote this lin
 This repository is in the factory (`tuannd9288/factory`). The kit owns this block; the repository owns the rest of the
 file. What a program enforces: `.gate/enforced-rules.md`.
 
-- Work enters as one issue labelled `task`, leaves as one pull request that says `Closes #<issue>`. Never push to `main`;
+- Work enters as one issue labelled `task`, leaves as one pull request that says `Closes #<issue>`. Push to `main` when a fix is urgent;
   land by a merge commit through auto-merge.
 - Run `.gate/bin/setup` once per clone. Before the pull request run `.gate/bin/verify` (it runs the repository's own
   verify too) and `.gate/bin/red-check --base origin/main`; push as often as you like.

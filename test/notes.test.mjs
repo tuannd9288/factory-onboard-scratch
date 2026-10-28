@@ -27,3 +27,9 @@ test("a note that says not delivered is no delivery", () => {
 test("a note that says not yet delivered is no delivery", () => {
   assert.equal(countDelivered(["Not yet delivered, van late", "not  YET delivered", "Delivered to desk"]), 1);
 });
+
+test("a missing note says it is empty", () => {
+  assert.equal(summarize(null), "(empty note)");
+  assert.equal(summarize(undefined), "(empty note)");
+  assert.equal(summarize("null"), "null");
+});

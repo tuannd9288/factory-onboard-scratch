@@ -5,3 +5,6 @@
 #   src/billing/
 #   migrations/
 #   src/webhooks/signature.*
+# factory-scratch: signed tokens and the outbound sender.
+src/auth/
+src/send.js

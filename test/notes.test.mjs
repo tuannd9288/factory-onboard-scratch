@@ -16,6 +16,19 @@ test("an empty note says so", () => {
   assert.equal(summarize("   "), "(empty note)");
 });
 
+test("a leading Note label is dropped regardless of case", () => {
+  assert.equal(summarize("Note: left at door"), "left at door");
+  assert.equal(summarize("NOTE:  left at door"), "left at door");
+});
+
+test("a Note label inside a note is kept", () => {
+  assert.equal(summarize("left at door. Note: gate code 12"), "left at door. Note: gate code 12");
+});
+
+test("a Note label alone is an empty note", () => {
+  assert.equal(summarize("Note:"), "(empty note)");
+});
+
 test("only notes that say delivered are counted as deliveries", () => {
   assert.equal(countDelivered(["Delivered to desk", "no answer", "DELIVERED, signed"]), 2);
 });

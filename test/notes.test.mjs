@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { SHEET_WIDTH, countDelivered, summarize } from "../src/notes.mjs";
+import * as notes from "../src/notes.mjs";
 
 test("a short note is kept, with its spaces folded", () => {
   assert.equal(summarize("  left   with\nneighbour "), "left with neighbour");
@@ -45,5 +46,20 @@ test("a note returned after delivery is no delivery", () => {
   assert.equal(
     countDelivered(["Delivered, then returned to sender", "delivered but RETURNED", "Delivered to desk"]),
     1,
+  );
+});
+
+test("notes that say returned are counted, in any case", () => {
+  assert.equal(notes.countReturned(["Returned to sender", "RETURNED", "Delivered to desk"]), 2);
+});
+
+test("a note that says not returned is not counted, with any spacing or case", () => {
+  assert.equal(notes.countReturned(["Not returned, held at depot", "not   RETURNED", "Returned to sender"]), 1);
+});
+
+test("a delivered note returned later still counts as returned", () => {
+  assert.equal(
+    notes.countReturned(["Returned to sender", "Delivered, then returned", "Not  returned, held at depot", "Delivered to desk"]),
+    2,
   );
 });

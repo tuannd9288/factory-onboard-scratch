@@ -40,3 +40,10 @@ test("a note that says not delivered is no delivery", () => {
 test("a note that says not yet delivered is no delivery", () => {
   assert.equal(countDelivered(["Not yet delivered, van late", "not  YET delivered", "Delivered to desk"]), 1);
 });
+
+test("a note returned after delivery is no delivery", () => {
+  assert.equal(
+    countDelivered(["Delivered, then returned to sender", "delivered but RETURNED", "Delivered to desk"]),
+    1,
+  );
+});

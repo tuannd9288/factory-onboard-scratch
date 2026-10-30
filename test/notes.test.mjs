@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { SHEET_WIDTH, countDelivered, summarize } from "../src/notes.mjs";
+import * as notes from "../src/notes.mjs";
 
 test("a short note is kept, with its spaces folded", () => {
   assert.equal(summarize("  left   with\nneighbour "), "left with neighbour");
@@ -45,5 +46,22 @@ test("a note returned after delivery is no delivery", () => {
   assert.equal(
     countDelivered(["Delivered, then returned to sender", "delivered but RETURNED", "Delivered to desk"]),
     1,
+  );
+});
+
+test("returned parcels are counted regardless of case", () => {
+  assert.equal(notes.countReturned(["Returned to sender", "RETURNED", "returned", "Delivered to desk"]), 3);
+  assert.equal(notes.countReturned([]), 0);
+  assert.equal(notes.countReturned(["unreturned", "returnedness"]), 0);
+});
+
+test("not returned is excluded regardless of spacing or case", () => {
+  assert.equal(notes.countReturned(["Not returned", "NOT  RETURNED", "not\treturned", "Not\n returned"]), 0);
+});
+
+test("the morning sheet counts returns after delivery", () => {
+  assert.equal(
+    notes.countReturned(["Returned to sender", "Delivered, then returned", "Not  returned, held at depot", "Delivered to desk"]),
+    2,
   );
 });

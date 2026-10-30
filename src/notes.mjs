@@ -15,3 +15,9 @@ export function countDelivered(notes) {
       !/\breturned\b/i.test(note),
   ).length;
 }
+
+export function countReturned(notes) {
+  return notes.filter(
+    (note) => /\breturned\b/i.test(note) && !/\bnot\s+returned\b/i.test(note),
+  ).length;
+}

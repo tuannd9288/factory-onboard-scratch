@@ -19,3 +19,10 @@ export function initials(name) {
     .map((word) => [...word][0].toUpperCase())
     .join('');
 }
+
+// The text cut to at most `max` characters, with an ellipsis when it was longer. Nothing calls it yet (FAC-100's scratch
+// acceptance: a source change with no failing test, carried by a No-red line).
+export function shorten(text, max) {
+  const flat = squash(text);
+  return flat.length <= max ? flat : `${flat.slice(0, Math.max(0, max - 1))}…`;
+}

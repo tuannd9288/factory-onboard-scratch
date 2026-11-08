@@ -15,3 +15,5 @@ Mỗi người nhận có giới hạn số tin trong một khoảng thời gian
 ## Token
 
 `src/auth/token.js` ký `<người nhận>.<hết hạn>.<hmac>` bằng khoá của gateway.
+
+This repository is the factory's scratch repository for onboarding; its pull requests try the kit, not the app.

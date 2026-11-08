@@ -10,19 +10,19 @@ file. What a program enforces: `.gate/enforced-rules.md`.
 - Work enters as one issue labelled `task`; claim it first: `.gate/bin/claim <n> <team>` (a second claim is refused). It
   leaves as one pull request whose body says `Issue: #<n>`, `Claim: <sha>` and `Team: <name>`. Never push to `main`;
   land by a merge commit through auto-merge.
-- Run `.gate/bin/setup` once per clone. Before the pull request run `.gate/bin/verify` (it runs the repository's own
-  verify too) and `.gate/bin/red-check --base origin/main`; push as often as you like.
+- Run `.gate/bin/setup` once per clone. Before the pull request run `.gate/bin/verify --fast`, the tests of the part you
+  changed (`--tests <files>`) and `.gate/bin/red-check --base origin/main`; the full suite runs on CI, as `verify`.
 - For a feature new to this repository, search GitHub (`gh search repos`, `gh search code`) and existing products for projects that already do it, and compare their approaches before writing it from scratch. Judge a project by its mechanism, never its stars or age. Adding a library, service or dependency is the Human's choice: propose it with the comparison.
 - A source change carries a test that fails at the base. Where none can, the pull request body says
-  `No-red: <why, 20 characters or more>`; the reviewer judges it (where Entire reviews, the Human: tier 3).
+  `No-red: <why, 20 characters or more>`; nobody judges it, and it raises no tier.
 - `.gate/bin/tier` prints the tier. Tier 2: commit the failing test first, alone, with `Failing-test: <command>`.
-  Tier 3 (a path in `.gate/protected`, this block included): the Human approves the head commit.
-- Four checks decide on the exact head commit, from `main`'s copies: `verify`, `review`, `verdict`, `tier` (where Entire
-  reviews, `tier` needs its check `Entire Gates` to be success). When one is red, read `.claude/skills/gate-red/SKILL.md` first.
+  Tier 3 (a path in `.gate/protected`, this block included): the Human approves the head commit, unless the repository's merge switch is at `all`.
+- Two checks decide on the exact head commit, from `main`'s copies: `verify` and `tier`. When one is red, read
+  `.claude/skills/gate-red/SKILL.md` first.
 - The Human (2026-10-29), to the reviewer: "Rate each bug from 1 to 10 on how often it would happen and how bad it would be. If the two scores multiplied are below 5, just file it as an issue and leave the code alone." To the writer: "Do not design for rare or future cases nobody asked about."
-- Never rewrite a pushed commit or force-push. After three red rounds the pull request is `needs-human`, with your recommended answer in it.
+- `forcePush` on origin/main defaults to `pstack`: only your own PR branch, with `--force-with-lease`, never main; `off` forbids rewrites. After three red rounds, label the PR `needs-human`, with your recommended answer.
 - Every deploy is the Human's; decide and report anything else that can be undone, and a reversible question never
-  blocks the work. Secrets live only in the environment `reviewer`. A rules finding wrong for one line:
+  blocks the work. Secrets live only in an environment, never at repository level. A rules finding wrong for one line:
   `gate-allow <rule-id>: <why>` (syntax in the file above).
 - A hosted agent assigned on GitHub takes tier 1 and 2 issues only, and never receives the shared bot token.
 <!-- factory:gate:end -->

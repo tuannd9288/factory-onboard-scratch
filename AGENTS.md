@@ -61,3 +61,5 @@ of `probes/plan.md` in tuannd9288/factory are written against it.
 | A summary never passes the sheet's width of 72 characters | `test/notes.test.mjs` |
 
 A rule with nothing to enforce it goes in this table as `prose` and gets a tool or is deleted.
+
+This repository tries the kit for the factory; a pull request here is a trial of the gate, not a change to the app.
